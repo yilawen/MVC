@@ -1,0 +1,143 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="keywords" content="jquery,ui,easy,easyui,web">
+	<meta name="description" content="easyui help you build your web page easily!">
+	<title>jQuery EasyUI Demo</title>
+	<link rel="stylesheet" type="text/css" href="css/easyui.css">
+	<link rel="stylesheet" type="text/css" href="icons/icon.css">
+	<!--<link rel="stylesheet" type="text/css" href="http://www.w3cschool.cc/try/jeasyui/themes/icon.css">-->
+
+	<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+	<script src="js/es.js" type="text/javascript" charset="utf-8"></script>
+	<style type="text/css">
+		#tt{
+			border: 1px solid silver;
+			width: 300px;
+		}
+		#win{
+			padding: 5px;
+		}
+		#win input{
+			margin: 8px;
+		}
+	</style>
+</head>
+	<body>
+		
+	<div style="margin:20px 0;">
+		<a href="javascript:void(0)" id="editA" class="easyui-linkbutton">编辑</a>
+	    <a href="javascript:void(0)" id="addA" class="easyui-linkbutton">增加</a> 
+	  	<a href="javascript:void(0)" id="deleteA" class="easyui-linkbutton" onclick="delete()">删除</a> 
+
+	</div>
+	<table id="tg" class="easyui-treegrid" title="Editable TreeGrid" style="width:900px;height:300px"
+			data-options="
+				iconCls: 'icon-ok',
+				animate: true,
+				collapsible: true,
+				fitColumns: true,
+				url: 'js/tree.json',
+				method: 'get',
+				idField: 'id',
+				treeField: 'name'
+				
+			">
+		<thead>
+			<tr>
+				<th data-options="field:'name',width:180,editor:'text'">编辑</th>
+				<th data-options="field:'persons',width:60,align:'right',editor:'numberbox'">状态</th>
+				<th data-options="field:'begin',width:80,editor:'datebox'">链接</th>
+				<th data-options="field:'center',width:80,editor:'datebox'">数据</th>
+				<th data-options="field:'end',width:80,editor:'datebox'">最后</th>
+				
+			</tr>
+		</thead>
+	</table>
+	
+	
+	
+	<div id="win" class="easyui-window" title="编辑窗口" style="width:300px;height:280px"
+	    data-options="iconCls:'icon-save',modal:true">
+	   编辑：<input type="text" /><br />
+	   状态：<input type="text" /><br />
+	   链接：<input type="text" /><br />
+	   数据：<input type="text" /><br />
+	   最后：<input type="text" /><br />
+	  <a href="javascript:void(0)" class="easyui-linkbutton" id="win_save">保存</a> 
+	  <a href="javascript:void(0)" class="easyui-linkbutton" id="win_exit">退出</a> 
+	  
+	  
+	  
+	</div>
+
+
+	<!--<script type="text/javascript">
+	
+		$('#p').panel({
+		    width:500,
+		    height:300,
+		    title:'My Panel',
+		    tools:[{
+		    iconCls: 'icon-ok',
+		    handler:function(){alert('new')}
+		    },{
+		    iconCls:'icon-save',
+		    handler:function(){alert('save')}
+		    }]
+		}); 
+//		function formatProgress(value){
+//	    	if (value){
+//		    	var s = '<div style="width:100%;border:1px solid #ccc">' +
+//		    			'<div style="width:' + value + '%;background:#cc0000;color:#fff">' + value + '%' + '</div>'
+//		    			'</div>';
+//		    	return s;
+//	    	} else {
+//		    	return '';
+//	    	}
+//		}
+		var editingId;
+		function edit(){
+			if (editingId != undefined){
+				$('#tg').treegrid('select', editingId);
+				return;
+			}
+			var row = $('#tg').treegrid('getSelected');
+			if (row){
+				editingId = row.id
+				$('#tg').treegrid('beginEdit', editingId);
+			}
+		}
+		function save(){
+			if (editingId != undefined){
+				var t = $('#tg');
+				t.treegrid('endEdit', editingId);
+				editingId = undefined;
+				var persons = 0;
+				var rows = t.treegrid('getChildren');
+				for(var i=0; i<rows.length; i++){
+					var p = parseInt(rows[i].persons);
+					if (!isNaN(p)){
+						persons += p;
+					}
+				}
+				var frow = t.treegrid('getFooterRows')[0];
+				frow.persons = persons;
+				t.treegrid('reloadFooter');
+			}
+		}
+//		function cancel(){
+//			if (editingId != undefined){
+//				$('#tg').treegrid('cancelEdit', editingId);
+//				editingId = undefined;
+//			}
+//		}
+	</script>-->
+
+	</body>
+	
+
+</html>
